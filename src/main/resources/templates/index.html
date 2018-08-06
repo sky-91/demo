@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<!--/*@thymesVar id="name" type="java.lang.String"*/-->
+<h2 th:text="|Welcome ${name} ${#dates.format(#dates.createNow(), 'yyyy-MM-dd HH:mm:ss')}|">
+  hahaha</h2>
+<h2 th:text="'You are the ' + (${count} &lt; 90? 'less ':'more ') + (${name == 'ZhangSan'}?'sb!':'2b!')">
+  hahaha</h2>
+<a href="index.html" th:href="@{/index}">wawawa</a>
+<div><h4>用户信息</h4></div>
+<table>
+  <tr>
+    <th>ID</th>
+    <th>姓名</th>
+    <th>年龄</th>
+    <th>性别</th>
+    <th>电话</th>
+    <th>邮箱</th>
+  </tr>
+  <tr th:each="user : ${users}">
+    <td th:text="${user.uid}">123</td>
+    <td th:text="${user.name}">123</td>
+    <td th:text="${user.age}">456</td>
+    <td th:text="${user.sex}?'男':'女'">789</td>
+    <td th:text="${user.phone}">789</td>
+    <td th:text="${user.email}">789</td>
+  </tr>
+</table>
+<div><h4>导出记录</h4></div>
+<table>
+  <tr>
+    <th>ID</th>
+    <th>申请时间</th>
+    <th>输入名</th>
+    <th>关系</th>
+    <th>状态</th>
+    <th>数据日期</th>
+  </tr>
+  <tr th:each="export : ${exportList}">
+    <td th:text="${export.id}">123</td>
+    <td th:text="${#dates.format(export.requestTime, 'yyyy-MM-dd HH:mm:ss')}">123</td>
+    <td th:text="${export.inputName}">456</td>
+    <td th:text="${export.relations}">789</td>
+    <td th:switch="${export.status}">
+      <i th:case="IN_PROGRESS">进行中</i>
+      <i th:case="COMPLETED">已完成</i>
+      <i th:case="ERROR">错误</i>
+    </td>
+    <td th:text="${export.dataDate}">789</td>
+  </tr>
+</table>
+<ul th:replace="footer::copyRight (start='2000',end='2020')"></ul>
+</body>
+</html>

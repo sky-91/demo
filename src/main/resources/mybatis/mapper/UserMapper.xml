@@ -1,0 +1,47 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.UserMapper">
+  <resultMap id="UserResult" type="com.example.demo.model.UserModel">
+    <id column="pk" property="pk" jdbcType="BIGINT"></id>
+    <result column="uid" property="uid" jdbcType="VARCHAR"></result>
+    <result column="name" property="name" jdbcType="VARCHAR"></result>
+    <result column="age" property="age" jdbcType="SMALLINT"></result>
+    <result column="sex" property="sex" jdbcType="TINYINT"></result>
+    <result column="phone" property="phone" jdbcType="CHAR"></result>
+    <result column="email" property="email" jdbcType="VARCHAR"></result>
+  </resultMap>
+  <sql id="AllColumn">
+    pk, uid, name, age, sex, phone, email
+  </sql>
+  <select id="findAll" resultMap="UserResult">
+    select
+    <include refid="AllColumn"/>
+    from user
+  </select>
+  <select id="findByPk" parameterType="java.lang.Long" resultMap="UserResult">
+    select
+    <include refid="AllColumn"/>
+    from user where pk = #{id}
+  </select>
+  <select id="findByUid" parameterType="java.lang.String" resultMap="UserResult">
+    select
+    <include refid="AllColumn"/>
+    from user where uid = #{uid}
+  </select>
+  <insert id="insert" parameterType="com.example.demo.model.UserModel">
+    insert into user (pk, uid, name, age, sex, phone, email)
+    values (#{pk}, #{uid}, #{name}, #{age}, #{sex}, #{phone}, #{email})
+  </insert>
+  <update id="update" parameterType="com.example.demo.model.UserModel">
+    update user set
+    <if test="name != null">name = #{name}</if>
+    <if test="age != null">age = #{age}</if>
+    <if test="sex != null">sex = #{sex}</if>
+    <if test="phone != null">phone = #{phone}</if>
+    <if test="email != null">email = #{email}</if>
+    where pk = #{pk}
+  </update>
+  <delete id="delete" parameterType="com.example.demo.model.UserModel">
+    delete from user where pk = #{pk}
+  </delete>
+</mapper>
