@@ -1,15 +1,17 @@
 package com.example.demo.data;
 
+import java.io.Serializable;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import org.springframework.validation.annotation.Validated;
 
 /**
  * @author qsky on 2018/6/26
  */
-public class UserData {
+public class UserData implements Serializable {
+
+	private static final long serialVersionUID = 3145056993610494783L;
 
 	@NotNull
 	private Long pk;
